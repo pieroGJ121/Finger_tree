@@ -74,6 +74,45 @@ public:
     next = nullptr;
   }
   ~FingerNode() {}
+
+  void push_front(T value) { push_front(new Node<T>(value)); }
+  void push_front(Node<T> *value) {
+    // The finger tree doesn't have elements, so it becomes a single
+    if (preffix == nullptr && suffix == nullptr) {
+
+      // The finger tree is a single
+    } else if (next == nullptr) {
+
+      // The preffix is full
+    } else if (preffix->size == 4) {
+      Node<T> *to_add = new Node<T>();
+      to_add->push(preffix->pop());
+      to_add->push(preffix->pop());
+      to_add->push(preffix->pop());
+      next->push_front(to_add);
+    } else {
+      // The suffix has less than 4 elements
+      preffix->push(new Node<T>());
+    }
+  }
+
+  void push_back(T value) { push_back(new Node<T>(value)); }
+  void push_back(Node<T> *value) {
+    // The finger tree is a single
+    if (preffix == nullptr) {
+      // The suffix is full
+    } else if (suffix->size == 4) {
+      Node<T> *to_add = new Node<T>();
+      to_add->push(suffix->pop());
+      to_add->push(suffix->pop());
+      to_add->push(suffix->pop());
+      next->push_front(to_add);
+      // The suffix has less than 4 elements
+    }
+    suffix->push(value);
+  }
+  void pop_front() {}
+  void pop_back() {}
 };
 
 #endif // NODE_H_
