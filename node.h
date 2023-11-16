@@ -8,15 +8,25 @@ template <typename T> class Node {
   Node<T> **children;
   int size;
   T value;
+  char state;
 
 public:
-  Node(T v) { value = v; }
+  Node(T v, char s = 'V') {
+    value = v;
+    children = new Node<T> *[3];
+    for (int i = 0; i < 3; i++) {
+      children[i] = nullptr;
+    }
+    size = 0;
+    state = s;
+  }
   Node() {
     children = new Node<T> *[3];
     for (int i = 0; i < 3; i++) {
       children[i] = nullptr;
     }
     size = 0;
+    state = 'N';
   }
   ~Node() { this->killSelf(); }
   void killSelf() {
@@ -111,8 +121,12 @@ public:
     }
     suffix->push(value);
   }
-  void pop_front() {}
-  void pop_back() {}
+  Node<T> *pop_front() {
+    if (preffix->size == 1) {
+      Node<T> *to_add = next->pop_front();
+    }
+  }
+  Node<T> *pop_back() {}
 };
 
 #endif // NODE_H_
