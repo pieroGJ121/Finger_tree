@@ -123,20 +123,26 @@ public:
   }
   Node<T> *pop_front() {
     if (state == 'E') {
-      throw std::runtime_error("No elements in finger tree.");
+      return nullptr;
     } else if (state == 'S') {
       Node<T> *temp = this->preffix->pop();
       preffix->killSelfNonRecursive();
       preffix = nullptr;
+      state = 'E';
       return temp;
     } else {
       Node<T> *temp = preffix->pop();
       if (preffix->size == 0) {
         Node<T> *to_add = next->pop_front();
-        preffix->pop();
-        for (int i = 0; i < 3; i++) {
-          preffix->push(to_add);
-          (*to_add)[i] = nullptr;
+        if (to_add == nullptr) {
+          // try to borrow from preffix
+          // if only 1 left in preffix, turn finger node into single
+        } else {
+          preffix->pop();
+          for (int i = 0; i < 3; i++) {
+            preffix->push(to_add);
+            (*to_add)[i] = nullptr;
+          }
         }
       }
       return temp;
@@ -144,19 +150,25 @@ public:
   }
   Node<T> *pop_back() {
     if (state == 'E') {
-      throw std::runtime_error("No elements in finger tree.");
+      return nullptr;
     } else if (state == 'S') {
       Node<T> *temp = this->preffix->pop();
       preffix->killSelfNonRecursive();
       preffix = nullptr;
+      state = 'E';
       return temp;
     } else {
       Node<T> *temp = suffix->pop();
       if (suffix->size == 0) {
         Node<T> *to_add = next->pop_back();
-        for (int i = 0; i < 3; i++) {
-          suffix->push(to_add);
-          (*to_add)[i] = nullptr;
+        if (to_add == nullptr) {
+          // try to borrow from preffix
+          // if only 1 left in preffix, turn finger node into single
+        } else {
+          for (int i = 0; i < 3; i++) {
+            suffix->push(to_add);
+            (*to_add)[i] = nullptr;
+          }
         }
       }
       return temp;
