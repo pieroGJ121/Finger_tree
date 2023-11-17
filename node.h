@@ -122,11 +122,46 @@ public:
     suffix->push(value);
   }
   Node<T> *pop_front() {
-    if (preffix->size == 1) {
-      Node<T> *to_add = next->pop_front();
+    if (state == 'E') {
+      throw std::runtime_error("No elements in finger tree.");
+    } else if (state == 'S') {
+      Node<T> *temp = this->preffix->pop();
+      preffix->killSelfNonRecursive();
+      preffix = nullptr;
+      return temp;
+    } else {
+      Node<T> *temp = preffix->pop();
+      if (preffix->size == 0) {
+        Node<T> *to_add = next->pop_front();
+        preffix->pop();
+        for (int i = 0; i < 3; i++) {
+          preffix->push(to_add);
+          (*to_add)[i] = nullptr;
+        }
+      }
+      return temp;
     }
   }
-  Node<T> *pop_back() {}
+  Node<T> *pop_back() {
+    if (state == 'E') {
+      throw std::runtime_error("No elements in finger tree.");
+    } else if (state == 'S') {
+      Node<T> *temp = this->preffix->pop();
+      preffix->killSelfNonRecursive();
+      preffix = nullptr;
+      return temp;
+    } else {
+      Node<T> *temp = suffix->pop();
+      if (suffix->size == 0) {
+        Node<T> *to_add = next->pop_back();
+        for (int i = 0; i < 3; i++) {
+          suffix->push(to_add);
+          (*to_add)[i] = nullptr;
+        }
+      }
+      return temp;
+    }
+  }
 };
 
 #endif // NODE_H_
