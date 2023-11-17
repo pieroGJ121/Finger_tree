@@ -2,6 +2,7 @@
 #define NODE_H_
 
 #include <exception>
+
 using namespace std;
 
 template <typename T> class Node {
@@ -55,6 +56,8 @@ public:
     size = 0;
   }
   ~Affix() { this->killSelf(); }
+  void killSelfNonRecursive() { delete[] children; }
+
   void killSelf() {
     for (int i = 0; i < size; i++) {
       if (children[i] != nullptr) {
@@ -76,12 +79,14 @@ template <typename T> class FingerNode {
   Affix<T> *preffix;
   Affix<T> *suffix;
   FingerNode<T> *next;
+  char state;
 
 public:
   FingerNode() {
     preffix = nullptr;
     suffix = nullptr;
-    next = nullptr;
+    next = new FingerNode<T>();
+    state = 'E';
   }
   ~FingerNode() {}
 
