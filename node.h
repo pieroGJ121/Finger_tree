@@ -88,11 +88,16 @@ public:
   void push_front(T value) { push_front(new Node<T>(value)); }
   void push_front(Node<T> *value) {
     // The finger tree doesn't have elements, so it becomes a single
-    if (preffix == nullptr && suffix == nullptr) {
-
-      // The finger tree is a single
-    } else if (next == nullptr) {
-
+    if (state == 'E') {
+      preffix = new Preffix<T>();
+      preffix->push(value);
+      this->state = 'S';
+      // The finger tree is a single, so it stops being one
+    } else if (state == 'S') {
+      suffix = new Suffix<T>();
+      suffix->push(preffix->pop());
+      preffix->push(value);
+      this->state = 'F';
       // The preffix is full
     } else if (preffix->size == 4) {
       Node<T> *to_add = new Node<T>();
@@ -101,25 +106,35 @@ public:
       to_add->push(preffix->pop());
       next->push_front(to_add);
     } else {
-      // The suffix has less than 4 elements
-      preffix->push(new Node<T>());
+      // The preffix has less than 4 elements
+      preffix->push(value);
     }
   }
 
   void push_back(T value) { push_back(new Node<T>(value)); }
   void push_back(Node<T> *value) {
-    // The finger tree is a single
-    if (preffix == nullptr) {
-      // The suffix is full
-    } else if (suffix->size == 4) {
+    // The finger tree doesn't have elements, so it becomes a single
+    if (state == 'E') {
+      preffix = new Preffix<T>();
+      preffix->push(value);
+      this->state = 'S';
+      // The finger tree is a single, so it stops being one
+    } else if (state == 'S') {
+      suffix = new Suffix<T>();
+      suffix->push(value);
+      this->state = 'F';
+      // The preffix is full
+    } else if (preffix->size == 4) {
       Node<T> *to_add = new Node<T>();
       to_add->push(suffix->pop());
       to_add->push(suffix->pop());
       to_add->push(suffix->pop());
       next->push_front(to_add);
+      suffix->push(value);
+    } else {
       // The suffix has less than 4 elements
+      suffix->push(value);
     }
-    suffix->push(value);
   }
   Node<T> *pop_front() {
     if (state == 'E') {
