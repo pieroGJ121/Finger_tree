@@ -1,79 +1,47 @@
 #ifndef NODE_H_
 #define NODE_H_
 
+#include "queue.h"
 #include <exception>
+#include <queue>
 
 using namespace std;
 
 template <typename T> class Node {
-  Node<T> **children;
-  int size;
+  Queue<Node<T> *> *children;
   T value;
   char state;
 
 public:
-  Node(T v, char s = 'V') {
+  Node(T v) {
     value = v;
-    children = new Node<T> *[3];
-    for (int i = 0; i < 3; i++) {
-      children[i] = nullptr;
-    }
-    size = 0;
-    state = s;
+    state = 'V';
   }
   Node() {
-    children = new Node<T> *[3];
-    for (int i = 0; i < 3; i++) {
-      children[i] = nullptr;
-    }
-    size = 0;
+    children = new Queue<Node<T> *>(3);
     state = 'N';
   }
   ~Node() { this->killSelf(); }
-  void killSelf() {
-    for (int i = 0; i < size; i++) {
-      if (children[i] != nullptr) {
-        children[i]->killSelf();
-      }
-    }
-    delete[] children;
-  }
-  Node<T> *pop();
-  void push(Node<T> *value);
+  void killSelf() { this->children->killSelfPointer(); }
+  Node<T> *pop() { return this->children->dequeue(); }
+  void push(Node<T> *value) { this->children->enqueue(value); }
+  int size() { return this->children->size(); }
 };
 
 template <typename T> class Affix {
 protected:
-  Node<T> **children;
-  int size;
+  Queue<Node<T> *> *children;
 
 public:
-  Affix() {
-    children = new Node<T> *[4];
-    for (int i = 0; i < 4; i++) {
-      children[i] = nullptr;
-    }
-    size = 0;
-  }
+  Affix() { children = new Queue<Node<T> *>(3); }
   ~Affix() { this->killSelf(); }
-  void killSelfNonRecursive() { delete[] children; }
+  void killSelf() { this->children->killSelfPointer(); }
 
-  void killSelf() {
-    for (int i = 0; i < size; i++) {
-      if (children[i] != nullptr) {
-        children[i]->killSelf();
-      }
-    }
-    delete[] children;
-  }
-
-  virtual Node<T> *top() = 0;
-  virtual Node<T> *pop() = 0;
-  virtual void push(Node<T> *value) = 0;
+  Node<T> *top() { return this->children->top(); }
+  Node<T> *pop() { return this->children->dequeue(); }
+  void push(Node<T> *value) { this->children->enqueue(value); }
+  int size() { return this->children->size(); }
 };
-
-template <typename T> class Preffix : public Affix<T> {};
-template <typename T> class Suffix : public Affix<T> {};
 
 template <typename T> class FingerNode {
   Affix<T> *preffix;
@@ -94,12 +62,12 @@ public:
   void push_front(Node<T> *value) {
     // The finger tree doesn't have elements, so it becomes a single
     if (state == 'E') {
-      preffix = new Preffix<T>();
+      preffix = new Affix<T>();
       preffix->push(value);
       this->state = 'S';
       // The finger tree is a single, so it stops being one
     } else if (state == 'S') {
-      suffix = new Suffix<T>();
+      suffix = new Affix<T>();
       suffix->push(preffix->pop());
       preffix->push(value);
       this->state = 'F';
@@ -120,12 +88,12 @@ public:
   void push_back(Node<T> *value) {
     // The finger tree doesn't have elements, so it becomes a single
     if (state == 'E') {
-      preffix = new Preffix<T>();
+      preffix = new Affix<T>();
       preffix->push(value);
       this->state = 'S';
       // The finger tree is a single, so it stops being one
     } else if (state == 'S') {
-      suffix = new Suffix<T>();
+      suffix = new Affix<T>();
       suffix->push(value);
       this->state = 'F';
       // The preffix is full
@@ -146,7 +114,6 @@ public:
       return nullptr;
     } else if (state == 'S') {
       Node<T> *temp = this->preffix->pop();
-      preffix->killSelfNonRecursive();
       preffix = nullptr;
       state = 'E';
       return temp;
@@ -173,7 +140,6 @@ public:
       return nullptr;
     } else if (state == 'S') {
       Node<T> *temp = this->preffix->pop();
-      preffix->killSelfNonRecursive();
       preffix = nullptr;
       state = 'E';
       return temp;
