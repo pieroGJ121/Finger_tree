@@ -15,17 +15,15 @@ public:
 
   void push_front(T value) {
     if (root == nullptr) {
-      root = new FingerNode<T>;
-    } else {
-      root->push_front(value);
+      root = new FingerNode<T>();
     }
+    root->push_front(value);
   }
   void push_back(T value) {
     if (root == nullptr) {
-      root = new FingerNode<T>;
-    } else {
-      root->push_back(value);
+      root = new FingerNode<T>();
     }
+    root->push_back(value);
   }
   void pop_front() {
     if (root == nullptr) {
@@ -41,6 +39,7 @@ public:
       root->pop_back();
     }
   }
+  string toString(string sep) { return root->toString(sep); }
 };
 
 #endif // FINGER_TREE_H_
