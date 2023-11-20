@@ -122,13 +122,18 @@ public:
       if (preffix->size == 0) {
         Node<T> *to_add = next->pop_front();
         if (to_add == nullptr) {
-          // try to borrow from preffix
-          // if only 1 left in preffix, turn finger node into single
+          // borrow from suffix
+          preffix->push(suffix->pop());
+
+          // if only 1 left in suffix, turn finger node into single
+          if (suffix->size() == 0) {
+            suffix->killSelf();
+            suffix = nullptr;
+            state = 'S';
+          }
         } else {
-          preffix->pop();
-          for (int i = 0; i < 3; i++) {
-            preffix->push(to_add);
-            (*to_add)[i] = nullptr;
+          for (int i = 0; i < to_add->size(); i++) {
+            preffix->push(to_add->pop());
           }
         }
       }
@@ -148,12 +153,17 @@ public:
       if (suffix->size == 0) {
         Node<T> *to_add = next->pop_back();
         if (to_add == nullptr) {
-          // try to borrow from preffix
+          // borrow from suffix
+          suffix->push(preffix->pop());
           // if only 1 left in preffix, turn finger node into single
+          if (preffix->size() == 0) {
+            preffix->killSelf();
+            preffix = nullptr;
+            state = 'S';
+          }
         } else {
-          for (int i = 0; i < 3; i++) {
-            suffix->push(to_add);
-            (*to_add)[i] = nullptr;
+          for (int i = 0; i < to_add->size(); i++) {
+            suffix->push(to_add->pop());
           }
         }
       }
