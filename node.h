@@ -28,6 +28,17 @@ public:
   void push_front(Node<T> *value) { this->children->push_front(value); }
   void push_back(Node<T> *value) { this->children->push_back(value); }
   int size() { return this->children->size(); }
+  string toString(string sep) {
+    string result = "";
+    if (state == 'V') {
+      result = to_string(value) + sep;
+    } else {
+      for (int i = 0; i < children->size(); i++) {
+        result += (*children)[i]->toString(sep);
+      }
+    }
+    return result;
+  }
 };
 
 template <typename T> class Affix {
@@ -45,6 +56,13 @@ public:
   void push_front(Node<T> *value) { this->children->push_front(value); }
   void push_back(Node<T> *value) { this->children->push_back(value); }
   int size() { return this->children->size(); }
+  string toString(string sep) {
+    string result = "";
+    for (int i = 0; i < children->size(); i++) {
+      result += (*children)[i]->toString(sep);
+    }
+    return result;
+  }
 };
 
 template <typename T> class FingerNode {
@@ -176,6 +194,20 @@ public:
       }
       return temp;
     }
+  }
+
+  string toString(string sep) {
+    string result = "";
+    if (state == 'S') {
+      result += preffix->toString(sep);
+    } else if (state == 'F') {
+      result += preffix->toString(sep);
+      result += "|";
+      result += next->toString(sep);
+      result += "|";
+      result += suffix->toString(sep);
+    }
+    return result;
   }
 };
 
