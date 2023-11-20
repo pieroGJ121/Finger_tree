@@ -13,7 +13,7 @@ public:
   virtual ~CircularArray() { delete[] array; }
   void resize() {
     T *temp = array;
-    array = new int[capacity + 8];
+    array = new T[capacity + 8];
     for (auto i = 0; i < capacity; i++) {
       array[i] = temp[(front + i) % capacity];
     }
