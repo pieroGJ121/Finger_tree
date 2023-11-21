@@ -2,6 +2,7 @@
 #define NODE_H_
 
 #include "circulararray.h"
+#include <SFML/Graphics.hpp>
 #include <exception>
 #include <queue>
 
@@ -46,11 +47,13 @@ protected:
   CircularArray<Node<T> *> *children;
 
 public:
+  void draw_suffix(sf::RenderWindow &window, Affix<T> *affix);
   Affix() { children = new CircularArray<Node<T> *>(3); }
   ~Affix() { this->killSelf(); }
   void killSelf() { this->children->killSelfPointer(); }
 
-  Node<T> *top() { return this->children->top(); }
+  Node<T> *head() { return (*this->children)[0]; }
+  Node<T> *tail() { return (*this->children)[this->children->size() - 1]; }
   Node<T> *pop_front() { return this->children->pop_front(); }
   Node<T> *pop_back() { return this->children->pop_back(); }
   void push_front(Node<T> *value) { this->children->push_front(value); }
@@ -72,6 +75,8 @@ template <typename T> class FingerNode {
   char state;
 
 public:
+  friend void draw_finger(sf::RenderWindow &window, FingerNode<T> *root);
+
   FingerNode() {
     preffix = nullptr;
     suffix = nullptr;
@@ -80,6 +85,7 @@ public:
   }
   ~FingerNode() {}
 
+  char stateF() { return state; }
   void push_front(T value) { push_front(new Node<T>(value)); }
   void push_front(Node<T> *value) {
     // The finger tree doesn't have elements, so it becomes a single
@@ -193,6 +199,24 @@ public:
         }
       }
       return temp;
+    }
+  }
+
+  Node<T> *head() {
+    if (state == 'E') {
+      throw runtime_error("finger tree is empty");
+    } else {
+      return this->preffix->head();
+    }
+  }
+
+  Node<T> *tail() {
+    if (state == 'E') {
+      throw runtime_error("finger tree is empty");
+    } else if (state == 'S') {
+      return this->preffix->head();
+    } else {
+      return this->suffix->tail();
     }
   }
 
