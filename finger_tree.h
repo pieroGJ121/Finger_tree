@@ -12,6 +12,7 @@ template <typename T> class Finger_tree {
   FingerNode<T> *root;
 
 public:
+  friend void draw_finger_tree(sf::RenderWindow &window, Finger_tree<T> *root);
   Finger_tree() { root = nullptr; }
   ~Finger_tree() { root->killSelf(); }
 
@@ -43,6 +44,10 @@ public:
   }
   string toString(string sep) { return root->toString(sep); }
 };
+
+template <typename T>
+void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int posy,
+               int posx) {}
 
 template <typename T>
 void draw_affix(sf::RenderWindow &window, Affix<T> *affix, int level,
@@ -77,8 +82,8 @@ void draw_affix(sf::RenderWindow &window, Affix<T> *affix, int level,
 template <typename T>
 void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
   // Loop to create and draw rectangles in a grid pattern
+  int level = 0;
   if (root != nullptr) {
-    int level = 1;
     while (root->stateF() != 'E') {
       // The distance between the finger node and the next depends on the level,
       // and the size of the circle
@@ -94,10 +99,15 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
         // print preffix and suffix
         draw_affix(window, root->preffix, level, offsety, false);
         draw_affix(window, root->suffix, level, offsety, true);
+        // dibujar linea hacia abajo. L distancia es de acuerdo al nivel
       }
       level++;
       root = root->next;
     }
   }
+}
+template <typename T>
+void draw_finger_tree(sf::RenderWindow &window, Finger_tree<T> *tree) {
+  draw_finger(window, tree->root);
 }
 #endif // FINGER_TREE_H_

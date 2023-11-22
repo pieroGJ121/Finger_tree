@@ -19,6 +19,9 @@ int main() {
     }
 
     window.clear(sf::Color::Black);
+    draw_finger_tree(window, finger);
+    window.display();
+
     // Put menu at the bottom. Options for the 4 operations.
     // The pushs need an aditional number. If push, print below for the
     // option to insert a numer
