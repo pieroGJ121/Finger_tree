@@ -106,7 +106,7 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
     while (root->stateF() != 'E') {
       sf::CircleShape circle(circle_radius);
       circle.setPosition(x, y);
-      int next_y = y + circle_radius * 6 + 3 * level;
+      int next_y = y + circle_radius * 9 + 3 * level * circle_radius;
       if (root->stateF() == 'S') {
         int yaff = y + circle_radius * 3;
         // special case for when the element is a single.
@@ -115,7 +115,7 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
         sf::Vertex line[] = {
             sf::Vertex(sf::Vector2f(x + circle_radius, y + circle_radius),
                        sf::Color::Black),
-            sf::Vertex(sf::Vector2f(x + circle_radius, yaff + circle_radius),
+            sf::Vertex(sf::Vector2f(x + circle_radius, y + circle_radius * 4),
                        sf::Color::Black)};
 
         window.draw(line, 2, sf::Lines);
