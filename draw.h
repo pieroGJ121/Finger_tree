@@ -41,12 +41,25 @@ void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
 
   if (node->node_state() == 'V') {
     circle.setFillColor(sf::Color::Black);
-    // needs to draw the value
+    window.draw(circle);
+    sf::Font font;
+    font.loadFromFile("SulphurPoint-Regular.ttf");
+    sf::Text text(std::to_string(node->val()), font);
+
+    // Centrar el texto en la ventana
+    sf::FloatRect textRect = text.getLocalBounds();
+    text.setOrigin(textRect.left + textRect.width / 2.0f,
+                   textRect.top + textRect.height / 2.0f);
+    text.setPosition(x + circle_radius, y - circle_radius * 2);
+
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::Green);
+    window.draw(text);
+
   } else {
     circle.setFillColor(sf::Color::Yellow);
+    window.draw(circle);
   }
-
-  window.draw(circle);
 }
 
 template <typename T>
