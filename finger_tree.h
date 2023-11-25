@@ -78,6 +78,7 @@ void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
 
   if (node->node_state() == 'V') {
     circle.setFillColor(sf::Color::Black);
+    // needs to draw the value
   } else {
     circle.setFillColor(sf::Color::Yellow);
   }

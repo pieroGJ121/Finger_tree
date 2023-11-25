@@ -18,7 +18,7 @@ int main() {
         window.close();
     }
 
-    window.clear(sf::Color::Black);
+    window.clear(sf::Color::White);
     draw_finger_tree(window, finger);
     window.display();
 
@@ -32,7 +32,7 @@ int main() {
     text.setPosition(x, y);
 
     text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::Black);
     window.draw(text);
 
     // Chain of conditionals to use the operations of the finger tree. Examples
