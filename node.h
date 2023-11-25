@@ -24,6 +24,7 @@ public:
   }
   ~Node() { this->killSelf(); }
   void killSelf() { this->children->killSelfPointer(); }
+
   Node<T> *pop_front() { return this->children->pop_front(); }
   Node<T> *pop_back() { return this->children->pop_back(); }
   void push_front(Node<T> *value) { this->children->push_front(value); }
@@ -85,7 +86,7 @@ public:
     next = nullptr;
     state = 'E';
   }
-  ~FingerNode() {}
+  ~FingerNode() { this->killSelf(); }
 
   char stateF() { return state; }
   void push_front(T value) { push_front(new Node<T>(value)); }
@@ -234,6 +235,18 @@ public:
       result += suffix->toString(sep);
     }
     return result;
+  }
+
+  void killSelf() {
+    if (preffix != nullptr) {
+      preffix->killSelf();
+    }
+    if (suffix != nullptr) {
+      suffix->killSelf();
+    }
+    if (next != nullptr) {
+      next->killSelf();
+    }
   }
 };
 
