@@ -17,6 +17,7 @@ public:
   Node(T v) {
     value = v;
     state = 'V';
+    children = nullptr;
   }
   Node() {
     children = new CircularArray<Node<T> *>(3);
@@ -28,7 +29,9 @@ public:
   Node<T> *pop_back() { return this->children->pop_back(); }
   void push_front(Node<T> *value) { this->children->push_front(value); }
   void push_back(Node<T> *value) { this->children->push_back(value); }
-  int size() { return this->children->size(); }
+  int size() { return children == nullptr ? 0 : this->children->size(); }
+  char node_state() { return this->state; }
+  Node<T> *&operator[](int index) { return (*children)[index]; }
   string toString(string sep) {
     string result = "";
     if (state == 'V') {
