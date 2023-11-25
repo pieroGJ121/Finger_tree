@@ -46,8 +46,41 @@ public:
 };
 
 template <typename T>
-void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int posy,
-               int posx) {}
+void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
+               int pos_y) {
+  sf::CircleShape circle(circle_radius);
+  circle.setPosition(pos_x, pos_y);
+
+  int x = pos_x;
+  int y = pos_y + circle_radius * 3;
+  int step = pow(circle_radius, level) * 3;
+  // The starting position of x works according to the level
+  if (node->size() == 2) {
+    x -= pow(circle_radius, level);
+  } else if (node->size() == 3) {
+    x -= pow(circle_radius, level) + circle_radius * (level + 1);
+  }
+
+  for (int i = 0; i < node->size(); i++) {
+    sf::Vertex line[] = {
+        sf::Vertex(sf::Vector2f(pos_x + circle_radius, pos_y + circle_radius),
+                   sf::Color::Black),
+        sf::Vertex(sf::Vector2f(x + circle_radius, y + circle_radius),
+                   sf::Color::Black)};
+    window.draw(line, 2, sf::Lines);
+
+    draw_node(window, (*node)[i], level - 1, x, y);
+    x += step;
+  }
+
+  if (node->node_state() == 'V') {
+    circle.setFillColor(sf::Color::Black);
+  } else {
+    circle.setFillColor(sf::Color::Yellow);
+  }
+
+  window.draw(circle);
+}
 
 template <typename T>
 void draw_affix(sf::RenderWindow &window, Affix<T> *affix, int level,
