@@ -19,7 +19,7 @@ void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
 
   int x = pos_x;
   int y = pos_y + circle_radius * 3;
-  int step = pow(circle_radius, level) * 3;
+  int step = pow(3, level) * circle_radius;
   // The starting position of x works according to the level
   if (node->size() == 2) {
     x -= pow(3, level) * circle_radius - circle_radius * 1.5 * level;
