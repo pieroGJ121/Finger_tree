@@ -50,8 +50,9 @@ protected:
   CircularArray<Node<T> *> *children;
 
 public:
-  void draw_suffix(sf::RenderWindow &window, Affix<T> *affix);
-  Affix() { children = new CircularArray<Node<T> *>(3); }
+  friend void draw_suffix(sf::RenderWindow &window, Affix<T> *affix, int level,
+                          int pos_x, int pos_y);
+  Affix() { children = new CircularArray<Node<T> *>(4); }
   ~Affix() { this->killSelf(); }
   void killSelf() { this->children->killSelfPointer(); }
 
@@ -61,6 +62,7 @@ public:
   Node<T> *pop_back() { return this->children->pop_back(); }
   void push_front(Node<T> *value) { this->children->push_front(value); }
   void push_back(Node<T> *value) { this->children->push_back(value); }
+  Node<T> *&operator[](int index) { return (*children)[index]; }
   int size() { return this->children->size(); }
   string toString(string sep) {
     string result = "";
