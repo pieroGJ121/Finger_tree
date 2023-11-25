@@ -133,7 +133,7 @@ public:
       to_add->push_back(suffix->pop_front());
       to_add->push_back(suffix->pop_front());
       to_add->push_back(suffix->pop_front());
-      next->push_front(to_add);
+      next->push_back(to_add);
       suffix->push_back(value);
     } else {
       // The suffix has less than 4 elements
