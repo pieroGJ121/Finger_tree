@@ -54,7 +54,59 @@ void tree_level1() {
   }
 }
 
+void affix_level0() {
+  sf::RenderWindow window(sf::VideoMode(1200, 1200), "Finger Tree");
+  Affix<int> *fixx = new Affix<int>();
+
+  for (int i = 0; i < 4; i++) {
+    Node<int> *level0 = new Node<int>(2);
+    fixx->push_back(level0);
+  }
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        window.close();
+    }
+
+    window.clear(sf::Color::White);
+
+    draw_affix(window, fixx, 0, 200, 200);
+
+    window.display();
+  }
+}
+
+void affix_level1() {
+  sf::RenderWindow window(sf::VideoMode(1200, 1200), "Finger Tree");
+  Affix<int> *fixx = new Affix<int>();
+
+  for (int i = 0; i < 4; i++) {
+    Node<int> *level1 = new Node<int>();
+    for (int i = 0; i < 3; i++) {
+      Node<int> *level0 = new Node<int>(2);
+      level1->push_back(level0);
+    }
+    fixx->push_back(level1);
+  }
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        window.close();
+    }
+
+    window.clear(sf::Color::White);
+
+    cout << "before draw affix" << endl;
+    draw_affix(window, fixx, 1, 500, 500);
+
+    window.display();
+  }
+}
 int main() {
   tree_level1();
+  // affix_level0();
+  // affix_level1();
   return 0;
 }
