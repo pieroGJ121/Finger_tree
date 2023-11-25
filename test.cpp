@@ -164,12 +164,121 @@ void finger_level1_s() {
     window.display();
   }
 }
+void finger_level_2_s() {
+  Finger_tree<int> *finger = new Finger_tree<int>();
+  finger->push_front(3);
+  finger->push_front(2);
+  finger->push_front(1);
+  finger->push_back(4);
+  finger->push_back(5);
+  finger->push_back(6);
+  finger->push_back(7);
+  finger->push_front(0);
+  finger->push_front(-1);
+  finger->push_front(-2);
+  finger->push_back(8);
+  finger->push_back(9);
+  finger->push_back(10);
+  finger->push_front(-3);
+  finger->push_front(-4);
+  finger->push_front(-5);
+  finger->push_front(-6);
+  finger->push_back(11);
+  finger->push_back(12);
+  finger->push_back(13);
+  finger->push_back(14);
+  finger->push_back(15);
+  finger->push_back(16);
+  finger->push_back(17);
+  finger->push_back(18);
+  finger->push_back(19);
+  finger->push_back(100);
+
+  sf::RenderWindow window(sf::VideoMode(1200, 1200), "Finger Tree",
+                          sf::Style::Default);
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        window.close();
+    }
+
+    window.clear(sf::Color::White);
+
+    draw_finger_tree(window, finger);
+
+    window.display();
+  }
+}
+
+void finger_level_2() {
+  Finger_tree<int> *finger = new Finger_tree<int>();
+  finger->push_front(3);
+  finger->push_front(2);
+  finger->push_front(1);
+  finger->push_back(4);
+  finger->push_back(5);
+  finger->push_back(6);
+  finger->push_back(7);
+  finger->push_front(0);
+  finger->push_front(-1);
+  finger->push_front(-2);
+  finger->push_back(8);
+  finger->push_back(9);
+  finger->push_back(10);
+  finger->push_front(-3);
+  finger->push_front(-4);
+  finger->push_front(-5);
+  finger->push_front(-6);
+  finger->push_back(11);
+  finger->push_back(12);
+  finger->push_back(13);
+  finger->push_back(14);
+  finger->push_back(15);
+  finger->push_back(16);
+  finger->push_back(17);
+  finger->push_back(18);
+  finger->push_back(19);
+  finger->push_back(20);
+  finger->push_back(21);
+  finger->push_back(22);
+  finger->push_back(23);
+  finger->push_back(24);
+  finger->push_back(25);
+  finger->push_back(26);
+  finger->push_back(27);
+  finger->push_back(28);
+  finger->push_back(29);
+  finger->push_back(30);
+  finger->push_back(31);
+  finger->push_back(32);
+  finger->push_back(33);
+
+  sf::RenderWindow window(sf::VideoMode(1200, 1200), "Finger Tree",
+                          sf::Style::Default);
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed)
+        window.close();
+    }
+
+    window.clear(sf::Color::White);
+
+    draw_finger_tree(window, finger);
+
+    window.display();
+  }
+}
+
 int main() {
   // tree_level1();
   // affix_level0();
   // affix_level1();
   // finger_level0();
   // finger_level1();
-  finger_level1_s();
+  // finger_level1_s();
+  // finger_level_2_s();
+  finger_level_2();
   return 0;
 }
