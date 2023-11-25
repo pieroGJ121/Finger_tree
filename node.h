@@ -30,6 +30,7 @@ public:
   void push_back(Node<T> *value) { this->children->push_back(value); }
   int size() { return children == nullptr ? 0 : this->children->size(); }
   char node_state() { return this->state; }
+  T val() { return this->value; }
   Node<T> *&operator[](int index) { return (*children)[index]; }
   string toString(string sep) {
     string result = "";
