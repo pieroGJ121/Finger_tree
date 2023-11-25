@@ -46,7 +46,7 @@ void tree_level1() {
         window.close();
     }
 
-    window.clear(sf::Color::Black);
+    window.clear(sf::Color::White);
 
     draw_node(window, level1, 1, 100, 100);
 

@@ -2,11 +2,14 @@
 #define FINGER_TREE_H_
 
 #include "node.h"
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/VertexArray.hpp>
+#include <cmath>
 #include <stdexcept>
 
 using namespace std;
 
-float circleSize = 35.0f; // calculate for the appropiate
+float circle_radius = 30.0f; // calculate for the appropiate
 
 template <typename T> class Finger_tree {
   FingerNode<T> *root;
