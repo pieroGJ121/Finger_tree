@@ -2,7 +2,6 @@
 #define NODE_H_
 
 #include "circulararray.h"
-#include <SFML/Graphics.hpp>
 #include <exception>
 #include <queue>
 
@@ -50,8 +49,6 @@ protected:
   CircularArray<Node<T> *> *children;
 
 public:
-  friend void draw_suffix(sf::RenderWindow &window, Affix<T> *affix, int level,
-                          int pos_x, int pos_y);
   Affix() { children = new CircularArray<Node<T> *>(4); }
   ~Affix() { this->killSelf(); }
   void killSelf() { this->children->killSelfPointer(); }
@@ -74,13 +71,12 @@ public:
 };
 
 template <typename T> class FingerNode {
-  Affix<T> *preffix;
-  Affix<T> *suffix;
-  FingerNode<T> *next;
   char state;
 
 public:
-  friend void draw_finger(sf::RenderWindow &window, FingerNode<T> *root);
+  Affix<T> *preffix;
+  Affix<T> *suffix;
+  FingerNode<T> *next;
 
   FingerNode() {
     preffix = nullptr;
