@@ -171,6 +171,7 @@ public:
       return nullptr;
     } else if (state == 'S') {
       Node<T> *temp = this->preffix->pop_back();
+      preffix->killSelf();
       preffix = nullptr;
       state = 'E';
       last_act += "Caso 2. Es un single, asi que se convierte en vacio";
