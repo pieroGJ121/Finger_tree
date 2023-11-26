@@ -58,50 +58,65 @@ int main() {
         window.draw(messageText);
 
         // Ajusta las posiciones de las leyendas
-        float leyendaY = messageText.getPosition().y + textRect.height + 10;
+        float leyendaY = messageText.getPosition().y + textRect.height + 20;
         float leyendaX = window.getSize().x - 20;  // Alinea a la derecha
 
-        const sf::Color COLOR_PLOMO = sf::Color(209, 211, 212);
+        const sf::Color COLOR_PLOMO = sf::Color(91, 91, 88);
         const sf::Color COLOR_ROJO = sf::Color::Red;
         const sf::Color COLOR_AZUL = sf::Color::Blue;
         const sf::Color COLOR_AMARILLO = sf::Color(209, 203, 10);
         const sf::Color COLOR_NEGRO = sf::Color::Black;
+        const sf::Color COLOR_VERDE = sf::Color(34, 117, 56);
+
+        float espacioVertical = 10;  // Espacio vertical entre las leyendas
 
         sf::Text leyendaPLOMO("PLOMO: Finger vacio", font);
         leyendaPLOMO.setCharacterSize(24);
         leyendaPLOMO.setFillColor(COLOR_PLOMO);
 
         leyendaPLOMO.setPosition(leyendaX - leyendaPLOMO.getLocalBounds().width, leyendaY);
+        leyendaY += leyendaPLOMO.getLocalBounds().height + espacioVertical;
 
         sf::Text leyendaROJO("ROJO: Finger de un solo elemento", font);
         leyendaROJO.setCharacterSize(24);
         leyendaROJO.setFillColor(COLOR_ROJO);
 
-        leyendaROJO.setPosition(leyendaX - leyendaROJO.getLocalBounds().width, leyendaY + leyendaPLOMO.getLocalBounds().height);
+        leyendaROJO.setPosition(leyendaX - leyendaROJO.getLocalBounds().width, leyendaY);
+        leyendaY += leyendaROJO.getLocalBounds().height + espacioVertical;
 
-        sf::Text leyendaAZUL("AZUL: Nodo sufijo o prefijo", font);
+        sf::Text leyendaAZUL("AZUL: Nodo afijo", font);
         leyendaAZUL.setCharacterSize(24);
         leyendaAZUL.setFillColor(COLOR_AZUL);
 
-        leyendaAZUL.setPosition(leyendaX - leyendaAZUL.getLocalBounds().width, leyendaY + leyendaPLOMO.getLocalBounds().height + leyendaROJO.getLocalBounds().height);
+        leyendaAZUL.setPosition(leyendaX - leyendaAZUL.getLocalBounds().width, leyendaY);
+        leyendaY += leyendaAZUL.getLocalBounds().height + espacioVertical;
 
         sf::Text leyendaAMARILLO("AMARILLO: Nodo", font);
         leyendaAMARILLO.setCharacterSize(24);
         leyendaAMARILLO.setFillColor(COLOR_AMARILLO);
 
-        leyendaAMARILLO.setPosition(leyendaX - leyendaAMARILLO.getLocalBounds().width, leyendaY + leyendaPLOMO.getLocalBounds().height + leyendaROJO.getLocalBounds().height + leyendaAZUL.getLocalBounds().height);
+        leyendaAMARILLO.setPosition(leyendaX - leyendaAMARILLO.getLocalBounds().width, leyendaY);
+        leyendaY += leyendaAMARILLO.getLocalBounds().height + espacioVertical;
 
         sf::Text leyendaNEGRO("NEGRO: Valor", font);
         leyendaNEGRO.setCharacterSize(24);
         leyendaNEGRO.setFillColor(COLOR_NEGRO);
-        leyendaNEGRO.setPosition(leyendaX - leyendaNEGRO.getLocalBounds().width, leyendaY + leyendaPLOMO.getLocalBounds().height + leyendaROJO.getLocalBounds().height + leyendaAZUL.getLocalBounds().height + leyendaAMARILLO.getLocalBounds().height);
 
+        leyendaNEGRO.setPosition(leyendaX - leyendaNEGRO.getLocalBounds().width, leyendaY);
+        leyendaY += leyendaNEGRO.getLocalBounds().height + espacioVertical;
+
+        sf::Text leyendaVERDE("VERDE: Finger", font);
+        leyendaVERDE.setCharacterSize(24);
+        leyendaVERDE.setFillColor(COLOR_VERDE);
+
+        leyendaVERDE.setPosition(leyendaX - leyendaVERDE.getLocalBounds().width, leyendaY);
 
         window.draw(leyendaPLOMO);
         window.draw(leyendaROJO);
         window.draw(leyendaAZUL);
         window.draw(leyendaAMARILLO);
         window.draw(leyendaNEGRO);
+        window.draw(leyendaVERDE);
 
         window.display();
 
