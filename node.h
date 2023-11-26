@@ -164,7 +164,10 @@ public:
             state = 'S';
           }
         } else {
-          for (int i = 0; i < to_add->size(); i++) {
+          cout << "case to borrow from next" << endl;
+          // this works because the nodes of deeper levels must be full
+          for (int i = 0; i < 3; i++) {
+            cout << i << endl;
             preffix->push_back(to_add->pop_front());
           }
         }
@@ -196,7 +199,8 @@ public:
           }
           // if only 1 left in preffix, turn finger node into single
         } else {
-          for (int i = 0; i < to_add->size(); i++) {
+          // this works because the nodes of deeper levels must be full
+          for (int i = 0; i < 3; i++) {
             suffix->push_front(to_add->pop_back());
           }
         }
