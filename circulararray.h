@@ -156,8 +156,8 @@ public:
     return result;
   }
   void killSelfPointer() {
-    for (int i = 0; i < this->capacity; i++) {
-      array[i]->killSelf();
+    for (int i = 0; i < this->size(); i++) {
+      (*this)[i]->killSelf();
     }
     delete[] array;
   }

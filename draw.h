@@ -44,7 +44,7 @@ void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
     window.draw(circle);
     sf::Font font;
     font.loadFromFile("SulphurPoint-Regular.ttf");
-    sf::Text text(std::to_string(node->val()), font);
+    sf::Text text(node->val(), font);
 
     // Centrar el texto en la ventana
     sf::FloatRect textRect = text.getLocalBounds();
@@ -97,12 +97,12 @@ void draw_affix(sf::RenderWindow &window, Affix<T> *affix, int level, int pos_x,
 }
 
 template <typename T>
-void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
+void draw_finger(sf::RenderWindow &window, FingerNode<T> *root, int pos_y) {
   // Loop to create and draw rectangles in a grid pattern
   if (root != nullptr) {
     int level = 0;
     int x = window.getSize().x / 2;
-    int y = 10;
+    int y = pos_y;
     while (root->stateF() != 'E') {
       sf::CircleShape circle(circle_radius);
       circle.setPosition(x, y);
@@ -170,8 +170,9 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root) {
 }
 
 template <typename T>
-void draw_finger_tree(sf::RenderWindow &window, Finger_tree<T> *tree) {
-  draw_finger(window, tree->top());
+void draw_finger_tree(sf::RenderWindow &window, Finger_tree<T> *tree,
+                      int pos_y) {
+  draw_finger(window, tree->top(), pos_y);
 }
 
 #endif // DRAW_H_
