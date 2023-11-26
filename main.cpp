@@ -57,6 +57,37 @@ int main() {
     messageText.setPosition(window.getSize().x - textRect.width - 20, 10);
     window.draw(messageText);
 
+    const sf::Color COLOR_PLOMO = sf::Color(128, 128, 128);   // Gris (plomo)
+    const sf::Color COLOR_ROJO = sf::Color::Red;
+    const sf::Color COLOR_AZUL = sf::Color::Blue;
+    const sf::Color COLOR_AMARILLO = sf::Color::Yellow;
+
+    // Leyendas
+    sf::Text leyendaPLOMO("PLOMO: Finger vacio", font);
+    leyendaPLOMO.setCharacterSize(24);
+    leyendaPLOMO.setFillColor(COLOR_PLOMO);
+    leyendaPLOMO.setPosition(20, window.getSize().y - 20);
+
+    sf::Text leyendaROJO("   ROJO: Finger de un solo elemento", font);
+    leyendaROJO.setCharacterSize(24);
+    leyendaROJO.setFillColor(COLOR_ROJO);
+    leyendaROJO.setPosition(leyendaPLOMO.getPosition().x + leyendaPLOMO.getLocalBounds().width + 20, window.getSize().y - 20);
+
+    sf::Text leyendaAZUL("   AZUL: Nodo sufijo o prefijo", font);
+    leyendaAZUL.setCharacterSize(24);
+    leyendaAZUL.setFillColor(COLOR_AZUL);
+    leyendaAZUL.setPosition(leyendaROJO.getPosition().x + leyendaROJO.getLocalBounds().width + 20, window.getSize().y - 20);
+
+    sf::Text leyendaAMARILLO("   AMARILLO: Nodo", font);
+    leyendaAMARILLO.setCharacterSize(24);
+    leyendaAMARILLO.setFillColor(COLOR_AMARILLO);
+    leyendaAMARILLO.setPosition(leyendaAZUL.getPosition().x + leyendaAZUL.getLocalBounds().width + 20, window.getSize().y - 20);
+
+    window.draw(leyendaPLOMO);
+    window.draw(leyendaROJO);
+    window.draw(leyendaAZUL);
+    window.draw(leyendaAMARILLO);
+
     window.display();
 
     while (window.pollEvent(event)) {
