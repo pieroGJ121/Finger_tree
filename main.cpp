@@ -79,12 +79,12 @@ int main() {
               }
               value = "";
               opcion = "";
-              // message = finger->message();
+              message = finger->message();
               in_push = 0;
             }
           } else if (event.text.unicode == 8) {
             if (!value.empty()) {
-                value.pop_back();
+              value.pop_back();
             }
           } else {
             message = "Ingresa un digito.";
@@ -98,8 +98,10 @@ int main() {
             in_push = 2;
           } else if (event.text.unicode == '3') {
             finger->pop_front();
+            message = finger->message();
           } else if (event.text.unicode == '4') {
             finger->pop_back();
+            message = finger->message();
           } else if (event.text.unicode == '5') {
             window.close();
           } else {

@@ -40,6 +40,8 @@ public:
   }
   string toString(string sep) { return root->toString(sep); }
   FingerNode<T> *top() { return root; }
+
+  string message() { return root->message(); }
 };
 
 #endif // FINGER_TREE_H_
