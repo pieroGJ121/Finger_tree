@@ -91,8 +91,52 @@ int main() {
         inputText.setFillColor(sf::Color::White);
         window.draw(inputText);
 
-        window.display();
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
+        window.close();
+      } else if (event.type == sf::Event::TextEntered) {
+        if (in_push > 0) {
+          // change status when enter is pressed. until then verify user input
+          // to add only numbers
+          if (event.text.unicode >= 48 && event.text.unicode <= 57) {
+            value += (char)event.text.unicode;
+          } else if (event.text.unicode == 13) {
+            if (value == "") {
+              message = "No se permite la cadena vacía.";
+            } else {
+              if (in_push == 1) {
+                finger->push_front(value);
+              } else {
+                finger->push_back(value);
+              }
+              value = "";
+              opcion = "";
+              // message = finger->message();
+              in_push = 0;
+            }
+          } else {
+            message = "Ingresa un digito.";
+          }
+        } else {
+          if (event.text.unicode == '1') {
+            opcion = "Push Front. ";
+            in_push = 1;
+          } else if (event.text.unicode == '2') {
+            opcion = "Push Back. ";
+            in_push = 2;
+          } else if (event.text.unicode == '3') {
+            finger->pop_front();
+          } else if (event.text.unicode == '4') {
+            finger->pop_back();
+          } else if (event.text.unicode == '5') {
+            window.close();
+          } else {
+            message = "Escoje una opción válida";
+          }
+        }
+      }
     }
+  }
 
-    return 0;
+  return 0;
 }
