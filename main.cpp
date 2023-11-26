@@ -66,7 +66,10 @@ int main() {
         if (in_push > 0) {
           // change status when enter is pressed. until then verify user input
           // to add only numbers
-          if ((event.text.unicode >= 48 && event.text.unicode <= 57) ||
+          if ((event.text.unicode == 48 &&
+               ((value[0] == 45 && value.size() >= 2) ||
+                (value[0] != 45 && value.size() >= 1))) ||
+              (event.text.unicode >= 49 && event.text.unicode <= 57) ||
               (event.text.unicode == 45 && value.empty())) {
             value += (char)event.text.unicode;
           } else if (event.text.unicode == 13) {
