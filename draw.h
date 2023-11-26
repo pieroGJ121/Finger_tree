@@ -10,12 +10,15 @@
 using namespace std;
 
 float circle_radius = 30.0f; // calculate for the appropiate
+int line_thickness = 3;
 
 template <typename T>
 void draw_node(sf::RenderWindow &window, Node<T> *node, int level, int pos_x,
                int pos_y) {
   sf::CircleShape circle(circle_radius);
   circle.setPosition(pos_x, pos_y);
+  circle.setOutlineThickness(line_thickness);
+  circle.setOutlineColor(sf::Color::Black);
 
   int x = pos_x;
   int y = pos_y + circle_radius * 3;
@@ -66,6 +69,8 @@ template <typename T>
 void draw_affix(sf::RenderWindow &window, Affix<T> *affix, int level, int pos_x,
                 int pos_y) {
   sf::CircleShape circle(circle_radius);
+  circle.setOutlineThickness(line_thickness);
+  circle.setOutlineColor(sf::Color::Black);
   circle.setPosition(pos_x, pos_y);
   circle.setFillColor(sf::Color::Blue);
 
@@ -105,6 +110,8 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root, int pos_y) {
     int y = pos_y;
     while (root->stateF() != 'E') {
       sf::CircleShape circle(circle_radius);
+      circle.setOutlineThickness(line_thickness);
+      circle.setOutlineColor(sf::Color::Black);
       circle.setPosition(x, y);
       int next_y = y + circle_radius * 9 + 3 * level * circle_radius;
       if (root->stateF() == 'S') {
@@ -159,6 +166,8 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root, int pos_y) {
       window.draw(circle);
     }
     sf::CircleShape circle(circle_radius);
+    circle.setOutlineThickness(line_thickness);
+    circle.setOutlineColor(sf::Color::Black);
     circle.setPosition(x, y);
     if (root->stateF() == 'S') {
       circle.setFillColor(sf::Color::Red);
