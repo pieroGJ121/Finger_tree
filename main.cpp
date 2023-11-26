@@ -48,6 +48,15 @@ int main() {
     window.draw(inputText);
 
     draw_finger_tree(window, finger, ytext + 45);
+
+    // Display message in the upper right corner
+    sf::Text messageText(message, font);
+    messageText.setCharacterSize(18);
+    messageText.setFillColor(sf::Color::Red);
+    sf::FloatRect textRect = messageText.getLocalBounds();
+    messageText.setPosition(window.getSize().x - textRect.width - 20, 10);
+    window.draw(messageText);
+
     window.display();
 
     while (window.pollEvent(event)) {
@@ -61,7 +70,7 @@ int main() {
             value += (char)event.text.unicode;
           } else if (event.text.unicode == 13) {
             if (value == "") {
-              message = "No se permite la cadena vacía.";
+              message = "No se permite la cadena vacia.";
             } else {
               if (in_push == 1) {
                 finger->push_front(value);
@@ -73,10 +82,10 @@ int main() {
               // message = finger->message();
               in_push = 0;
             }
-          } else if (true) {
-            // activar si es que backspace es presionado. Eliminar el utlimo
-            // caracter de value. Verificar que hayan al menos un caracter en
-            // value.
+          } else if (event.text.unicode == 8) {
+            if (!value.empty()) {
+                value.pop_back();
+            }
           } else {
             message = "Ingresa un digito.";
           }
@@ -94,7 +103,7 @@ int main() {
           } else if (event.text.unicode == '5') {
             window.close();
           } else {
-            message = "Escoje una opción válida";
+            message = "Escoje una opcion valida";
           }
         }
       }
