@@ -73,6 +73,10 @@ int main() {
               // message = finger->message();
               in_push = 0;
             }
+          } else if (true) {
+            // activar si es que backspace es presionado. Eliminar el utlimo
+            // caracter de value. Verificar que hayan al menos un caracter en
+            // value.
           } else {
             message = "Ingresa un digito.";
           }
