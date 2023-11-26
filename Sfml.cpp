@@ -1,95 +1,54 @@
+#include "draw.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include <string>
 #include <vector>
 
+using namespace std;
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1900, 1070), "Matriz SFML");
+  sf::RenderWindow window(sf::VideoMode(1900, 1070), "Matriz SFML");
+  window.setKeyRepeatEnabled(false);
 
-    std::vector<int> opciones;
-    std::vector<int> valores;
-    int opcion_elegida = 0;
-    int opcion = 0;
-    int valor = 0;
-    bool ingresando_opcion = true;
+  string opcion = "";
+  string message = "";
+  int in_push = 0;
+  string value = "";
 
-    sf::Font font;
-    font.loadFromFile("SulphurPoint-Regular.ttf");
+  int ytext = 30;
+  sf::Font font;
+  font.loadFromFile("SulphurPoint-Regular.ttf");
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            } else if (event.type == sf::Event::TextEntered) {
-                if (event.text.unicode == 13) { 
-                    if (ingresando_opcion) {
-                        opcion_elegida = opcion;
-                        opciones.push_back(opcion_elegida);
-                        opcion = 0;
-                        ingresando_opcion = false;
-                        if (opcion_elegida == 5) {
-                            std::cout << "Mostrando Finger Tree\n";
-                        } else if (opcion_elegida == 6) {
-                            window.close();
-                        }
-                    } else {
-                        valores.push_back(valor);
-                        valor = 0;
-                        ingresando_opcion = true;
-                    }
-                } else if (event.text.unicode == 8) {  
-                    if (ingresando_opcion) {
-                        opcion /= 10;
-                    } else {
-                        valor /= 10;
-                    }
-                } else if (event.text.unicode >= '0' && event.text.unicode <= '9') {
-                    if (ingresando_opcion) {
-                        opcion = opcion * 10 + (event.text.unicode - '0');
-                    } else {
-                        valor = valor * 10 + (event.text.unicode - '0');
-                    }
-                }
-            }
-        }
+  Finger_tree<string> *finger = new Finger_tree<string>();
 
-        window.clear(sf::Color::Black);
+  while (window.isOpen()) {
+    sf::Event event;
 
-        sf::Text displayText;
-        displayText.setFont(font);
-        displayText.setCharacterSize(20);
-        displayText.setFillColor(sf::Color::White);
+    window.clear(sf::Color::White);
 
-        std::string displayString = "Opciones: ";
-        for (int option : opciones) {
-            displayString += std::to_string(option) + " ";
-        }
+    sf::Text inputText;
+    if (in_push == 0) {
+      inputText = sf::Text(sf::String("1. Push front, "
+                                      "2. Push back, "
+                                      "3. Pop front, "
+                                      "4. Pop back, "
+                                      "5. Cerrar Aplicacion. "
+                                      "Ingrese su opcion: "),
+                           font);
+    } else {
+      inputText =
+          sf::Text(sf::String(opcion + "Ingrese su valor: " + value), font);
+    }
 
-        displayString += "\nValores: ";
-        for (int value : valores) {
-            displayString += std::to_string(value) + " ";
-        }
+    inputText.setPosition(20, ytext);
+    inputText.setCharacterSize(24);
+    inputText.setFillColor(sf::Color::Black);
+    window.draw(inputText);
 
-        displayText.setString(displayString);
-        displayText.setPosition(20, 20);
-        window.draw(displayText);
-
-        sf::Text inputText(
-            sf::String("\nIngrese su opcion: " + std::to_string(opcion) + "\n\n"
-                       "1. Push front\n"
-                       "2. Push back\n"
-                       "3. Pop front\n"
-                       "4. Pop back\n"
-                       "5. Mostrar Finger Tree\n"
-                       "6. Cerrar Aplicacion\n\n"
-                       "Ingrese valor: " + std::to_string(valor) + "\n"),
-            font
-        );  
-
-        inputText.setPosition(20, 20 + displayText.getGlobalBounds().height + 10);
-        inputText.setCharacterSize(24);
-        inputText.setFillColor(sf::Color::White);
-        window.draw(inputText);
+    draw_finger_tree(window, finger, ytext + 45);
+    window.display();
 
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
