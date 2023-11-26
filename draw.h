@@ -143,7 +143,7 @@ void draw_finger(sf::RenderWindow &window, FingerNode<T> *root, int pos_y) {
         draw_affix(window, root->preffix, level, xpre, yaff);
         draw_affix(window, root->suffix, level, xsu, yaff);
 
-        circle.setFillColor(sf::Color::Green);
+        circle.setFillColor(sf::Color(34, 117, 56));
         line[0] = sf::Vertex(sf::Vector2f(x + circle_radius, y + circle_radius),
                              sf::Color::Black);
         line[1] =
