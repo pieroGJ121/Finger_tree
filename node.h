@@ -157,9 +157,8 @@ public:
         if (to_add == nullptr) {
           // borrow from suffix
           preffix->push_back(suffix->pop_front());
-
-          // if only 1 left in suffix, turn finger node into single
           if (suffix->size() == 0) {
+            // if only 1 left in suffix, turn finger node into single
             suffix->killSelf();
             suffix = nullptr;
             state = 'S';
@@ -188,13 +187,14 @@ public:
         Node<T> *to_add = next->pop_back();
         if (to_add == nullptr) {
           // borrow from suffix
-          suffix->push_front(preffix->pop_back());
-          // if only 1 left in preffix, turn finger node into single
-          if (preffix->size() == 0) {
-            preffix->killSelf();
-            preffix = nullptr;
+          if (preffix->size() == 1) {
+            suffix->killSelf();
+            suffix = nullptr;
             state = 'S';
+          } else {
+            suffix->push_front(preffix->pop_back());
           }
+          // if only 1 left in preffix, turn finger node into single
         } else {
           for (int i = 0; i < to_add->size(); i++) {
             suffix->push_front(to_add->pop_back());
