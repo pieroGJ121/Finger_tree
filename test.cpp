@@ -103,7 +103,7 @@ void finger_level0() {
 
     window.clear(sf::Color::White);
 
-    draw_finger_tree(window, finger);
+    draw_finger_tree(window, finger, 10);
 
     window.display();
   }
@@ -132,7 +132,7 @@ void finger_level1() {
 
     window.clear(sf::Color::White);
 
-    draw_finger_tree(window, finger);
+    draw_finger_tree(window, finger, 10);
 
     window.display();
   }
@@ -159,7 +159,7 @@ void finger_level1_s() {
 
     window.clear(sf::Color::White);
 
-    draw_finger_tree(window, finger);
+    draw_finger_tree(window, finger, 10);
 
     window.display();
   }
@@ -205,7 +205,7 @@ void finger_level_2_s() {
 
     window.clear(sf::Color::White);
 
-    draw_finger_tree(window, finger);
+    draw_finger_tree(window, finger, 10);
 
     window.display();
   }
@@ -265,7 +265,7 @@ void finger_level_2() {
 
     window.clear(sf::Color::White);
 
-    draw_finger_tree(window, finger);
+    draw_finger_tree(window, finger, 10);
 
     window.display();
   }
@@ -278,7 +278,7 @@ int main() {
   // finger_level0();
   // finger_level1();
   // finger_level1_s();
-  // finger_level_2_s();
-  finger_level_2();
+  finger_level_2_s();
+  // finger_level_2();
   return 0;
 }
