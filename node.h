@@ -196,7 +196,6 @@ public:
           // this works because the nodes of deeper levels must be full
           last_act += "Caso 5. Se presta del siguiente nivel";
           for (int i = 0; i < 3; i++) {
-            cout << i << endl;
             preffix->push_back(to_add->pop_front());
           }
         }
