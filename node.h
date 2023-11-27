@@ -121,6 +121,7 @@ public:
       next->push_front(to_add);
       last_act += "Caso 3. El prefijo estaba lleno, asi que se hace llamada "
                   "recursiva de push front al siguiente nivel";
+      preffix->push_front(value);
     } else {
       // The preffix has less than 4 elements
       last_act += "Caso 4. El prefijo con espacio, asi que solo se aniade";
