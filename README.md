@@ -4,11 +4,13 @@
 - Mauricio Rivera Cerron
 - Leonardo Fabian Huaman Casma
 
-## Detalles de la APP.
-Esta app fue creada con SFML, esta diseñada para poder apreciar de una manera más sencilla el funcionamiento de un Finger Tree.
-Cuenta con una leyenda para saber los sgignificados de cada una de los colores y un mensaje en la parte superior dercha para saber que se esta realizando o un mensaje de error.
+## Detalles de la aplicación
+Esta aplicación fue creada con SFML. Esta es una librería diseñada para dar una interfaz sinple a aplicaciones multimedia. 
 
-### ¿Como instalamos el SFML?
+Para poder apreciar de una manera más sencilla el funcionamiento de un Finger Tree.
+Cuenta con una leyenda para saber los sgignificados de cada uno de los colores y un mensaje en la parte superior derecha para saber lo que se hizo en la última operación o un mensaje de error.
+
+### ¿Cómo instalamos el SFML?
 
 #### En Windows
 
@@ -25,7 +27,7 @@ g++ -LC:/SFML-2.6.1/lib Sfml.o -o app.exe -lmingw32 -lsfml-graphics -lsfml-windo
 
 #### En Linux
 
-Se usa el instalador de paquetes para instalar sfml. En la siguiente pagina se indica otras opciones si es que no se tiene el paquete disponible. [Link hacia página](https://www.sfml-dev.org/tutorials/2.5/start-linux.php)
+Se usa el instalador de paquetes de Linux para instalar SFML. En la siguiente página se indica otras opciones si es que el paquete no está disponible. [Link hacia página](https://www.sfml-dev.org/tutorials/2.5/start-linux.php)
 
 En secuencia se ejecuta los siguientes comandos en el terminal:
 
@@ -35,9 +37,9 @@ g++ Sfml.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 ./sfml-qpp
 ```
 
+## Detalles de la APP
 
 ## Instrucciones de Uso.
-1. Abrir el app.exe
-2. Insertar la operacion que desea realizar
-3. En el caso de un push, se ingresa el valor.
-4. En el caso de un pop se muestra el Finger con el elemento eliminado.
+1. Abrir el app.exe.
+2. Insertar la operacion que desea realizar. Las posibles operaciones son: Push front, Push back, Pop front, Pop back y Cerrar aplicación. Luego de realizar una operación, se muestra el finger tree con los útlimos cambios.
+3. En el caso de un push, luego se pide ingresar el valor.
